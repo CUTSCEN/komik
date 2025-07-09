@@ -11,47 +11,33 @@
 <body>
 
   <h1 id="judul">Selamat Datang</h1>
-  <p id="deskripsi">Klik tombol di bawah untuk mendukung kami sebelum mendownload.</p>
+  <p id="deskripsi">Klik tombol untuk melanjutkan.</p>
 
-  <button id="btnSponsor1" onclick="goToSponsor1()">Kunjungi Sponsor Pertama</button>
-  <button id="btnSponsor2" onclick="goToSponsor2()" style="display:none">Kunjungi Sponsor Kedua</button>
+  <button id="btnLanjut" onclick="lanjut()">Lanjutkan</button>
   <button id="btnDownload" onclick="download()" style="display:none">Download Sekarang</button>
 
   <script>
-    function goToSponsor1() {
-      localStorage.setItem("tahap", "1");
-      window.open("iklan1.html", "_blank");
-    }
+    const tahap = localStorage.getItem("tahap") || "0";
 
-    function goToSponsor2() {
-      localStorage.setItem("tahap", "2");
-      window.open("iklan2.html", "_blank");
-    }
-
-    function download() {
-      localStorage.removeItem("tahap");
-      window.location.href = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
-    }
-
-    function updateUI() {
-      const tahap = localStorage.getItem("tahap");
-      if (tahap === "1") {
-        document.getElementById("btnSponsor1").style.display = "none";
-        document.getElementById("btnSponsor2").style.display = "inline-block";
-        document.getElementById("deskripsi").textContent = "Sponsor pertama selesai. Lanjut ke sponsor kedua.";
-      } else if (tahap === "2") {
-        document.getElementById("btnSponsor1").style.display = "none";
-        document.getElementById("btnSponsor2").style.display = "none";
-        document.getElementById("btnDownload").style.display = "inline-block";
-        document.getElementById("judul").textContent = "Terima kasih 🙏";
-        document.getElementById("deskripsi").textContent = "Silakan klik tombol download di bawah.";
+    function lanjut() {
+      if (tahap === "0") {
+        localStorage.setItem("tahap", "1");
+        location.href = "iklan1.html"; // ⬅️ Ganti halaman
+      } else if (tahap === "1") {
+        localStorage.setItem("tahap", "2");
+        location.href = "iklan2.html";
+      } else {
+        localStorage.removeItem("tahap");
+        window.location.href = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
       }
     }
 
-    updateUI();
-
-    // Periksa status setiap detik (jika user kembali dari tab iklan)
-    setInterval(updateUI, 1000);
+    if (tahap === "2") {
+      document.getElementById("btnLanjut").style.display = "none";
+      document.getElementById("btnDownload").style.display = "inline-block";
+      document.getElementById("judul").textContent = "Terima kasih 🙏";
+      document.getElementById("deskripsi").textContent = "Klik tombol untuk download.";
+    }
   </script>
 
 </body>
