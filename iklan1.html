@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Iklan 1</title>
+  <script>
+    // Cek apakah sudah kembali dari iklan
+    if (sessionStorage.getItem("iklan1") === "done") {
+      // Lanjut ke iklan2.html
+      window.location.href = "iklan2.html";
+    } else {
+      // Tandai dan buka iklan 1 di tab baru
+      sessionStorage.setItem("iklan1", "done");
+      window.open("https://www.profitableratecpm.com/m0vaus2n?key=1b56bd2f9fe7fe3391d9df2289235f15", "_blank");
+    }
+  </script>
+</head>
+<body>
+  <p>Silakan tekan tombol <b>Back</b> di HP/browser untuk lanjut.</p>
+</body>
+</html>
