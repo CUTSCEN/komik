@@ -1,18 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Download File</title>
+  <meta charset="UTF-8">
+  <title>Menuju Download...</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h2>Step 1: Dukung kami dengan klik iklan berikut 👇</h2>
-  <a href="https://www.profitableratecpm.com/m0vaus2n?key=1b56bd2f9fe7fe3391d9df2289235f15" target="_blank">
-    <button style="padding: 10px 20px;">Kunjungi Sponsor</button>
-  </a>
 
-  <h2>Step 2: Download File</h2>
-  <p>Klik tombol di bawah untuk melanjutkan ke MediaFire:</p>
-  <a href="https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file" target="_blank">
-    <button style="padding: 10px 20px;">Download via MediaFire</button>
-  </a>
+  <h1 id="title">Mengalihkan ke sponsor...</h1>
+  <p id="desc">Sebentar ya, kamu akan diarahkan ke sponsor terlebih dahulu.</p>
+  <button id="actionBtn" style="display:none;">Klik untuk Download</button>
+
+  <script>
+    const hasVisited = localStorage.getItem("visitedSponsor");
+
+    const sponsorUrl = "https://www.profitableratecpm.com/m0vaus2n?key=1b56bd2f9fe7fe3391d9df2289235f15";
+    const downloadUrl = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
+
+    if (!hasVisited) {
+      // Pertama kali: redirect ke sponsor
+      localStorage.setItem("visitedSponsor", "yes");
+      window.location.href = sponsorUrl;
+    } else {
+      // Setelah balik dari sponsor: tampilkan tombol untuk lanjut
+      document.getElementById("title").innerText = "Terima kasih telah mendukung!";
+      document.getElementById("desc").innerText = "Silakan klik tombol di bawah untuk melanjutkan ke link download:";
+      const btn = document.getElementById("actionBtn");
+      btn.style.display = "inline-block";
+      btn.onclick = () => {
+        localStorage.removeItem("visitedSponsor"); // reset agar bisa diulang
+        window.location.href = downloadUrl;
+      };
+    }
+  </script>
+
 </body>
 </html>
