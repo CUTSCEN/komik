@@ -5,13 +5,13 @@
   <title>Iklan 1</title>
   <script>
     setTimeout(() => {
-      localStorage.setItem("tahap", "1"); // tandai tahap selesai
       window.open("https://www.profitableratecpm.com/m0vaus2n?key=1b56bd2f9fe7fe3391d9df2289235f15", "_blank");
-      window.location.href = "index.html"; // balik ke halaman utama
+      localStorage.setItem("tahap", "1");
+      window.close(); // Tutup tab otomatis (kalau diizinkan browser)
     }, 1500);
   </script>
 </head>
 <body>
-  <h2>Mengalihkan ke sponsor tahap 1...</h2>
+  <h2>Membuka sponsor tahap 1...</h2>
 </body>
 </html>
