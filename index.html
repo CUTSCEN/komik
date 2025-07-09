@@ -2,49 +2,49 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Halaman Download</title>
+  <title>Halaman Utama</title>
   <style>
     body { font-family: Arial; text-align: center; margin-top: 50px; }
-    button { padding: 12px 24px; font-size: 16px; display: none; }
+    button { padding: 12px 24px; font-size: 16px; margin: 10px; }
   </style>
 </head>
 <body>
 
-  <h1 id="judul">Menyiapkan Halaman...</h1>
-  <p id="deskripsi">Mohon tunggu sebentar, membuka sponsor.</p>
-  <button id="btnDownload">Download Sekarang</button>
+  <h1 id="judul">Selamat Datang</h1>
+  <p id="deskripsi">Klik tombol di bawah untuk mendukung kami sebelum download.</p>
+  <button id="btnSponsor1" onclick="goToSponsor1()">Kunjungi Sponsor Pertama</button>
+  <button id="btnSponsor2" onclick="goToSponsor2()" style="display:none">Kunjungi Sponsor Kedua</button>
+  <button id="btnDownload" onclick="download()" style="display:none">Download Sekarang</button>
 
   <script>
-    const tahap = localStorage.getItem("tahap");
-    const judul = document.getElementById("judul");
-    const deskripsi = document.getElementById("deskripsi");
-    const btn = document.getElementById("btnDownload");
-
-    if (!tahap) {
-      localStorage.setItem("tahap", "1");
+    function goToSponsor1() {
       window.open("iklan1.html", "_blank");
-      deskripsi.textContent = "Silakan kembali ke halaman ini setelah iklan pertama.";
-    } else if (tahap === "1") {
-      localStorage.setItem("tahap", "2");
-      window.open("iklan2.html", "_blank");
-      deskripsi.textContent = "Silakan kembali ke halaman ini setelah iklan kedua.";
-    } else if (tahap === "2") {
-      judul.textContent = "Terima kasih 🙏";
-      deskripsi.textContent = "Silakan klik tombol di bawah untuk mengunduh file:";
-      btn.style.display = "inline-block";
-      btn.onclick = () => {
-        localStorage.removeItem("tahap");
-        window.location.href = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
-      };
+      localStorage.setItem("tahap", "1");
     }
 
-    // Cek status setiap detik
-    setInterval(() => {
-      const newTahap = localStorage.getItem("tahap");
-      if (newTahap !== tahap) {
-        location.reload(); // reload jika status berubah
-      }
-    }, 1000);
+    function goToSponsor2() {
+      window.open("iklan2.html", "_blank");
+      localStorage.setItem("tahap", "2");
+    }
+
+    function download() {
+      localStorage.removeItem("tahap");
+      window.location.href = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
+    }
+
+    // Update UI berdasarkan tahap
+    const tahap = localStorage.getItem("tahap");
+    if (tahap === "1") {
+      document.getElementById("btnSponsor1").style.display = "none";
+      document.getElementById("btnSponsor2").style.display = "inline-block";
+      document.getElementById("deskripsi").textContent = "Lanjutkan ke sponsor kedua untuk membuka download.";
+    } else if (tahap === "2") {
+      document.getElementById("btnSponsor1").style.display = "none";
+      document.getElementById("btnSponsor2").style.display = "none";
+      document.getElementById("btnDownload").style.display = "inline-block";
+      document.getElementById("judul").textContent = "Terima kasih 🙏";
+      document.getElementById("deskripsi").textContent = "Silakan klik tombol download di bawah.";
+    }
   </script>
 
 </body>
