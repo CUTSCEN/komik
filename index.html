@@ -2,40 +2,49 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Download Halaman</title>
+  <title>Halaman Download</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    body { font-family: Arial; text-align: center; margin-top: 50px; }
     button { padding: 12px 24px; font-size: 16px; display: none; }
   </style>
 </head>
 <body>
 
-  <h1 id="judul">Tunggu sebentar...</h1>
-  <p id="deskripsi">Kamu akan diarahkan ke sponsor.</p>
+  <h1 id="judul">Menyiapkan Halaman...</h1>
+  <p id="deskripsi">Mohon tunggu sebentar, membuka sponsor.</p>
   <button id="btnDownload">Download Sekarang</button>
 
   <script>
     const tahap = localStorage.getItem("tahap");
-    const btn = document.getElementById("btnDownload");
     const judul = document.getElementById("judul");
     const deskripsi = document.getElementById("deskripsi");
+    const btn = document.getElementById("btnDownload");
 
     if (!tahap) {
-      // Tahap pertama
-      window.location.href = "iklan1.html";
+      localStorage.setItem("tahap", "1");
+      window.open("iklan1.html", "_blank");
+      deskripsi.textContent = "Silakan kembali ke halaman ini setelah iklan pertama.";
     } else if (tahap === "1") {
-      // Tahap kedua
-      window.location.href = "iklan2.html";
+      localStorage.setItem("tahap", "2");
+      window.open("iklan2.html", "_blank");
+      deskripsi.textContent = "Silakan kembali ke halaman ini setelah iklan kedua.";
     } else if (tahap === "2") {
-      // Munculkan tombol download
       judul.textContent = "Terima kasih 🙏";
-      deskripsi.textContent = "Klik tombol di bawah untuk download file:";
+      deskripsi.textContent = "Silakan klik tombol di bawah untuk mengunduh file:";
       btn.style.display = "inline-block";
       btn.onclick = () => {
-        localStorage.removeItem("tahap"); // reset
+        localStorage.removeItem("tahap");
         window.location.href = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
       };
     }
+
+    // Cek status setiap detik
+    setInterval(() => {
+      const newTahap = localStorage.getItem("tahap");
+      if (newTahap !== tahap) {
+        location.reload(); // reload jika status berubah
+      }
+    }, 1000);
   </script>
 
 </body>
