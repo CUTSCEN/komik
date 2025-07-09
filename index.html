@@ -4,47 +4,37 @@
   <meta charset="UTF-8">
   <title>Halaman Utama</title>
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 50px; }
-    button { padding: 12px 24px; font-size: 16px; margin: 10px; }
+    body { font-family: Arial; text-align: center; margin-top: 60px; }
   </style>
 </head>
 <body>
 
-  <h1 id="judul">Selamat Datang</h1>
-  <p id="deskripsi">Klik tombol di bawah untuk mendukung kami sebelum download.</p>
-  <button id="btnSponsor1" onclick="goToSponsor1()">Kunjungi Sponsor Pertama</button>
-  <button id="btnSponsor2" onclick="goToSponsor2()" style="display:none">Kunjungi Sponsor Kedua</button>
-  <button id="btnDownload" onclick="download()" style="display:none">Download Sekarang</button>
+  <h1 id="judul">Sedang Menyiapkan...</h1>
+  <p id="deskripsi">Harap tunggu, kamu akan diarahkan ke sponsor secara otomatis.</p>
 
   <script>
-    function goToSponsor1() {
-      window.open("iklan1.html", "_blank");
+    const tahap = localStorage.getItem("tahap");
+
+    if (!tahap) {
       localStorage.setItem("tahap", "1");
-    }
-
-    function goToSponsor2() {
-      window.open("iklan2.html", "_blank");
+      window.open("iklan1.html", "_blank");
+    } else if (tahap === "1") {
       localStorage.setItem("tahap", "2");
-    }
-
-    function download() {
+      window.open("iklan2.html", "_blank");
+    } else if (tahap === "2") {
       localStorage.removeItem("tahap");
       window.location.href = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
     }
 
-    // Update UI berdasarkan tahap
-    const tahap = localStorage.getItem("tahap");
-    if (tahap === "1") {
-      document.getElementById("btnSponsor1").style.display = "none";
-      document.getElementById("btnSponsor2").style.display = "inline-block";
-      document.getElementById("deskripsi").textContent = "Lanjutkan ke sponsor kedua untuk membuka download.";
-    } else if (tahap === "2") {
-      document.getElementById("btnSponsor1").style.display = "none";
-      document.getElementById("btnSponsor2").style.display = "none";
-      document.getElementById("btnDownload").style.display = "inline-block";
-      document.getElementById("judul").textContent = "Terima kasih 🙏";
-      document.getElementById("deskripsi").textContent = "Silakan klik tombol download di bawah.";
-    }
+    // Jika user kembali ke tab index.html, periksa status secara berkala
+    setInterval(() => {
+      const newTahap = localStorage.getItem("tahap");
+      if (newTahap === "2" && tahap !== "2") {
+        location.reload();
+      } else if (newTahap === null && tahap === "2") {
+        location.reload();
+      }
+    }, 1000);
   </script>
 
 </body>
