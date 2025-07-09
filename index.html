@@ -2,54 +2,12 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Download File</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 50px;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 16px;
-      display: none;
-    }
-  </style>
+  <title>Memulai...</title>
+  <script>
+    window.location.href = "iklan1.html";
+  </script>
 </head>
 <body>
-
-  <h1 id="judul">Sebentar...</h1>
-  <p id="deskripsi">Mengalihkan ke sponsor tahap 1 🙏</p>
-  <button id="btnDownload">Download Sekarang</button>
-
-  <script>
-    const iklan1 = "https://www.profitableratecpm.com/m0vaus2n?key=1b56bd2f9fe7fe3391d9df2289235f15"; // Adsterra
-    const iklan2 = "https://otieu.com/4/9545071"; // Otieu.com
-    const download = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
-
-    const tahap = localStorage.getItem("tahapIklan");
-
-    if (!tahap) {
-      localStorage.setItem("tahapIklan", "1");
-      window.location.href = iklan1;
-    } else if (tahap === "1") {
-      localStorage.setItem("tahapIklan", "2");
-      document.getElementById("judul").innerText = "Sebentar lagi...";
-      document.getElementById("deskripsi").innerText = "Mengalihkan ke sponsor tahap 2";
-      setTimeout(() => {
-        window.location.href = iklan2;
-      }, 1500);
-    } else if (tahap === "2") {
-      document.getElementById("judul").innerText = "Terima kasih 🙌";
-      document.getElementById("deskripsi").innerText = "Klik tombol di bawah untuk download file:";
-      const btn = document.getElementById("btnDownload");
-      btn.style.display = "inline-block";
-      btn.onclick = () => {
-        localStorage.removeItem("tahapIklan");
-        window.location.href = download;
-      };
-    }
-  </script>
-
+  <p>Mengalihkan ke sponsor...</p>
 </body>
 </html>
