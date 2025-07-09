@@ -2,12 +2,38 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Memulai...</title>
-  <script>
-    window.location.href = "iklan1.html";
-  </script>
+  <title>Halaman Utama</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding-top: 50px; }
+    button { padding: 12px 24px; font-size: 16px; display: none; }
+  </style>
 </head>
 <body>
-  <p>Mengalihkan ke sponsor...</p>
+  <h1 id="judul">Tunggu sebentar...</h1>
+  <p id="deskripsi">Kamu akan diarahkan ke halaman sponsor.</p>
+  <button id="btnDownload">Download Sekarang</button>
+
+  <script>
+    const tahap = localStorage.getItem("tahap");
+    const btn = document.getElementById("btnDownload");
+    const judul = document.getElementById("judul");
+    const deskripsi = document.getElementById("deskripsi");
+
+    if (!tahap) {
+      localStorage.setItem("tahap", "1");
+      window.location.href = "iklan1.html";
+    } else if (tahap === "1") {
+      localStorage.setItem("tahap", "2");
+      window.location.href = "iklan2.html";
+    } else if (tahap === "2") {
+      judul.textContent = "Terima kasih telah mendukung!";
+      deskripsi.textContent = "Klik tombol di bawah untuk mulai download:";
+      btn.style.display = "inline-block";
+      btn.onclick = () => {
+        localStorage.removeItem("tahap"); // reset
+        window.location.href = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
+      };
+    }
+  </script>
 </body>
 </html>
