@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Menuju Download</title>
@@ -7,49 +7,41 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 50px;
+      padding-top: 50px;
     }
     button {
       padding: 12px 24px;
       font-size: 16px;
-      margin: 10px;
-      cursor: pointer;
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <h1 id="title">Dukung Kami Terlebih Dahulu 🙏</h1>
-  <p id="desc">Klik tombol sponsor di bawah ini, lalu kembali untuk melanjutkan ke link download.</p>
-
-  <button id="sponsorBtn">Kunjungi Sponsor</button>
-  <button id="downloadBtn" style="display: none;">Download Sekarang</button>
+  <h1 id="judul">Sebentar...</h1>
+  <p id="deskripsi">Mengalihkan ke sponsor untuk mendukung kami 🙏</p>
+  <button id="btnDownload">Download Sekarang</button>
 
   <script>
-    const sponsorBtn = document.getElementById("sponsorBtn");
-    const downloadBtn = document.getElementById("downloadBtn");
     const sponsorUrl = "https://www.profitableratecpm.com/m0vaus2n?key=1b56bd2f9fe7fe3391d9df2289235f15";
     const downloadUrl = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
+    const sudahSponsor = localStorage.getItem("sudahSponsor");
 
-    sponsorBtn.onclick = () => {
-      localStorage.setItem("sudahKlikSponsor", "yes");
-      window.open(sponsorUrl, "_blank"); // buka sponsor di tab baru
-    };
-
-    // Saat user kembali ke halaman, cek apakah sudah klik sponsor
-    window.onload = () => {
-      if (localStorage.getItem("sudahKlikSponsor") === "yes") {
-        document.getElementById("title").innerText = "Terima kasih 🙌";
-        document.getElementById("desc").innerText = "Sekarang kamu bisa download filenya di bawah ini:";
-        sponsorBtn.style.display = "none";
-        downloadBtn.style.display = "inline-block";
-      }
-    };
-
-    downloadBtn.onclick = () => {
-      localStorage.removeItem("sudahKlikSponsor");
-      window.location.href = downloadUrl;
-    };
+    if (!sudahSponsor) {
+      // Pertama kali: tandai, lalu redirect ke sponsor
+      localStorage.setItem("sudahSponsor", "true");
+      window.location.href = sponsorUrl;
+    } else {
+      // Setelah user kembali (via tombol back), munculkan tombol download
+      document.getElementById("judul").innerText = "Terima kasih 🙌";
+      document.getElementById("deskripsi").innerText = "Silakan klik tombol di bawah untuk download:";
+      const btn = document.getElementById("btnDownload");
+      btn.style.display = "inline-block";
+      btn.onclick = () => {
+        localStorage.removeItem("sudahSponsor"); // reset agar bisa diulang
+        window.location.href = downloadUrl;
+      };
+    }
   </script>
 
 </body>
