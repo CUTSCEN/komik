@@ -4,48 +4,54 @@
   <meta charset="UTF-8">
   <title>Halaman Utama</title>
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 50px; }
+    body { font-family: Arial; text-align: center; margin-top: 60px; }
     button { padding: 12px 24px; font-size: 16px; margin: 10px; }
   </style>
 </head>
 <body>
 
   <h1 id="judul">Selamat Datang</h1>
-  <p id="deskripsi">Klik tombol di bawah untuk mulai.</p>
+  <p id="deskripsi">Klik tombol di bawah untuk mendukung kami sebelum mendownload.</p>
 
   <button id="btnSponsor1" onclick="goToSponsor1()">Kunjungi Sponsor Pertama</button>
   <button id="btnSponsor2" onclick="goToSponsor2()" style="display:none">Kunjungi Sponsor Kedua</button>
   <button id="btnDownload" onclick="download()" style="display:none">Download Sekarang</button>
 
   <script>
-    const tahap = localStorage.getItem("tahap");
-
-    if (tahap === "1") {
-      document.getElementById("btnSponsor1").style.display = "none";
-      document.getElementById("btnSponsor2").style.display = "inline-block";
-      document.getElementById("deskripsi").textContent = "Lanjut ke sponsor kedua.";
-    } else if (tahap === "2") {
-      document.getElementById("btnSponsor1").style.display = "none";
-      document.getElementById("btnSponsor2").style.display = "none";
-      document.getElementById("btnDownload").style.display = "inline-block";
-      document.getElementById("judul").textContent = "Terima kasih 🙏";
-      document.getElementById("deskripsi").textContent = "Silakan klik tombol download.";
-    }
-
     function goToSponsor1() {
-      window.open("iklan1.html", "_blank");
       localStorage.setItem("tahap", "1");
+      window.open("iklan1.html", "_blank");
     }
 
     function goToSponsor2() {
-      window.open("iklan2.html", "_blank");
       localStorage.setItem("tahap", "2");
+      window.open("iklan2.html", "_blank");
     }
 
     function download() {
       localStorage.removeItem("tahap");
       window.location.href = "https://www.mediafire.com/file/zupplqu7hfe1ej1/kepergok_selingkuh.zip/file";
     }
+
+    function updateUI() {
+      const tahap = localStorage.getItem("tahap");
+      if (tahap === "1") {
+        document.getElementById("btnSponsor1").style.display = "none";
+        document.getElementById("btnSponsor2").style.display = "inline-block";
+        document.getElementById("deskripsi").textContent = "Sponsor pertama selesai. Lanjut ke sponsor kedua.";
+      } else if (tahap === "2") {
+        document.getElementById("btnSponsor1").style.display = "none";
+        document.getElementById("btnSponsor2").style.display = "none";
+        document.getElementById("btnDownload").style.display = "inline-block";
+        document.getElementById("judul").textContent = "Terima kasih 🙏";
+        document.getElementById("deskripsi").textContent = "Silakan klik tombol download di bawah.";
+      }
+    }
+
+    updateUI();
+
+    // Periksa status setiap detik (jika user kembali dari tab iklan)
+    setInterval(updateUI, 1000);
   </script>
 
 </body>
