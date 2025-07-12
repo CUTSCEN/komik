@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Halaman Utama</title>
+  <title>Halaman Awal</title>
   <style>
     body { font-family: Arial; text-align: center; margin-top: 60px; }
     button { padding: 12px 24px; font-size: 16px; margin: 10px; }
@@ -10,11 +10,10 @@
 </head>
 <body>
 
-  <h1 id="judul">Selamat Datang</h1>
-  <p id="deskripsi">Klik tombol untuk melanjutkan.</p>
+  <h1 id="judul">Selamat Datang!</h1>
+  <p id="deskripsi">Klik tombol untuk memulai proses sebelum download.</p>
 
   <button id="btnLanjut" onclick="lanjut()">Lanjutkan</button>
-  <button id="btnDownload" onclick="download()" style="display:none">Download Sekarang</button>
 
   <script>
     const tahap = localStorage.getItem("tahap") || "0";
@@ -22,21 +21,21 @@
     function lanjut() {
       if (tahap === "0") {
         localStorage.setItem("tahap", "1");
-        location.href = "iklan1.html"; // ⬅️ Ganti halaman
+        location.href = "iklan1.html";
       } else if (tahap === "1") {
         localStorage.setItem("tahap", "2");
         location.href = "iklan2.html";
-      } else {
+      } else if (tahap === "2") {
         localStorage.removeItem("tahap");
-        window.location.href = "https://www.mediafire.com/file/7ww08l0evzo2408/%255BDoujindesu.TV%255D_Class_no_Cool_Gal_to_Yobidashi_Sex.pdf/file";
+        location.href = "download.html";
       }
     }
 
-    if (tahap === "2") {
-      document.getElementById("btnLanjut").style.display = "none";
-      document.getElementById("btnDownload").style.display = "inline-block";
-      document.getElementById("judul").textContent = "Terima kasih 🙏";
-      document.getElementById("deskripsi").textContent = "Klik tombol untuk download.";
+    // Update UI
+    if (tahap === "1") {
+      document.getElementById("deskripsi").textContent = "Sponsor pertama selesai. Klik untuk lanjut ke sponsor kedua.";
+    } else if (tahap === "2") {
+      document.getElementById("deskripsi").textContent = "Sponsor kedua selesai. Klik untuk menuju download.";
     }
   </script>
 
