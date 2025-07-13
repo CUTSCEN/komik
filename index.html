@@ -2,41 +2,37 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Halaman Awal</title>
+  <title>Download Center</title>
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 60px; }
-    button { padding: 12px 24px; font-size: 16px; margin: 10px; }
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 60px; }
+    button { padding: 12px 24px; font-size: 16px; margin: 10px; display: block; width: 250px; margin: 10px auto; }
   </style>
 </head>
 <body>
 
-  <h1 id="judul">Selamat Datang!</h1>
-  <p id="deskripsi">Klik tombol untuk memulai proses sebelum download.</p>
+  <h1>Daftar File Download</h1>
+  <p>Semua file akan diarahkan melalui sponsor terlebih dahulu.</p>
 
-  <button id="btnLanjut" onclick="lanjut()">Lanjutkan</button>
+  <div id="daftar-download"></div>
 
   <script>
-    const tahap = localStorage.getItem("tahap") || "0";
+    // 🎯 Tambahkan/kurangi file di array ini
+    const fileList = [
+      { name: "VS CHAPTER 1-15", url: "https://www.mediafire.com/file/qvz4znw18f3w5kb/REKAN+KANTOR.pdf/file" },
+     
+    ];
 
-    function lanjut() {
-      if (tahap === "0") {
-        localStorage.setItem("tahap", "1");
-        location.href = "iklan1.html";
-      } else if (tahap === "1") {
-        localStorage.setItem("tahap", "2");
-        location.href = "iklan2.html";
-      } else if (tahap === "2") {
-        localStorage.removeItem("tahap");
-        location.href = "download.html";
-      }
-    }
+    const container = document.getElementById("daftar-download");
 
-    // Update UI
-    if (tahap === "1") {
-      document.getElementById("deskripsi").textContent = "Sponsor pertama selesai. Klik untuk lanjut ke sponsor kedua.";
-    } else if (tahap === "2") {
-      document.getElementById("deskripsi").textContent = "Sponsor kedua selesai. Klik untuk menuju download.";
-    }
+    fileList.forEach(file => {
+      const btn = document.createElement("button");
+      btn.textContent = file.name;
+      btn.onclick = () => {
+        localStorage.setItem("targetDownload", file.url);
+        window.location.href = "gate.html";
+      };
+      container.appendChild(btn);
+    });
   </script>
 
 </body>
