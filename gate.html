@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Proses Sponsor</title>
+</head>
+<body style="text-align:center; font-family:sans-serif; margin-top:50px;">
+
+  <h2>Mohon dukung kami dengan mengunjungi sponsor:</h2>
+
+  <div id="step1">
+    <a href="https://www.profitableratecpm.com/m0vaus2n?key=1b56bd2f9fe7fe3391d9df2289235f15" target="_blank">
+      <button style="padding:10px 20px; font-size:16px;">Kunjungi Sponsor 1</button>
+    </a>
+    <p>Setelah itu, kembali ke halaman ini untuk lanjut.</p>
+  </div>
+
+  <div id="step2" style="display:none;">
+    <a href="https://otieu.com/4/9545188" target="_blank">
+      <button style="padding:10px 20px; font-size:16px;">Kunjungi Sponsor 2</button>
+    </a>
+    <p>Setelah itu, kembali ke sini untuk melanjutkan ke download.</p>
+  </div>
+
+  <div id="step3" style="display:none;">
+    <button onclick="goDownload()" style="padding:12px 28px; font-size:18px;">Download Sekarang</button>
+  </div>
+
+  <script>
+    let step = 0;
+
+    // Setelah klik sponsor 1
+    document.getElementById("step1").addEventListener("click", () => {
+      step = 1;
+      setTimeout(() => {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+      }, 1000);
+    });
+
+    // Setelah klik sponsor 2
+    document.getElementById("step2").addEventListener("click", () => {
+      step = 2;
+      setTimeout(() => {
+        document.getElementById("step2").style.display = "none";
+        document.getElementById("step3").style.display = "block";
+      }, 1000);
+    });
+
+    function goDownload() {
+      const url = localStorage.getItem("targetDownload");
+      if (url) {
+        localStorage.removeItem("targetDownload");
+        window.location.href = url;
+      } else {
+        alert("URL tidak ditemukan. Silakan mulai dari awal.");
+        window.location.href = "index.html";
+      }
+    }
+  </script>
+
+</body>
+</html>
